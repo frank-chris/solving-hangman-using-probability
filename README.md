@@ -6,7 +6,7 @@ See [hangman.ipynb](https://github.com/frank-chris/solving-hangman-using-probabi
 
 ## Theory
 
-Consider the belief network shown below, where the random variable $W$ stores a five-letter word and the random variable $L_i \in\{\mathrm{A}, \mathrm{B}, \ldots, \mathrm{Z}\}$ reveals only the word's $i$ th letter. Also, suppose that these five-letter words are chosen at random from a large corpus of text according to their frequency:
+Consider the belief network shown below, where the random variable $W$ stores a five-letter word and the random variable $L_i \in \\{\mathrm{A}, \mathrm{B}, \ldots, \mathrm{Z}\\}$ reveals only the word's $i$ th letter. Also, suppose that these five-letter words are chosen at random from a large corpus of text according to their frequency:
 
 $$
 P(W=w)=\frac{\text{COUNT}(w)}{\sum_{w^{\prime}} \text{COUNT}\left(w^{\prime}\right)},
@@ -31,16 +31,16 @@ $$
 Now consider your next guess: call it $\ell$. In this game the best guess is the letter $\ell$ that maximizes
 
 $$
-P\left(L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right) .
+P\left(L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin \\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\} \right) .
 $$
 
 In other words, pick the letter $\ell$ that is most likely to appear in the blank (unguessed) spaces of the word. For any letter $\ell$ we can compute this probability as follows:
 
 $$
 \begin{aligned}
-& P \left(L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right) \\
-& =\sum_w P\left(W=w, L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right), \quad \text { marginalization } \\
-& =\sum_w P\left(W=w \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right) P\left(L_2=\ell \text { or } L_4=\ell \mid W=w\right) \text { product rule and CI }
+& P \left(L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right) \\
+& =\sum_w P\left(W=w, L_2=\ell \text { or } L_4=\ell \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right), \quad \text { marginalization } \\
+& =\sum_w P\left(W=w \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right) P\left(L_2=\ell \text { or } L_4=\ell \mid W=w\right) \text { product rule and CI }
 \end{aligned}
 $$
 
@@ -54,8 +54,8 @@ And the first term we obtain from Bayes rule:
 
 $$
 \begin{aligned}
-& P\left(W=w \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right) \\
-& =\frac{P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\} \mid W=w\right) P(W=w)}{P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right)} \text { Bayes rule }
+& P\left(W=w \mid L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right) \\
+& =\frac{P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\} \mid W=w\right) P(W=w)}{P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right)} \text { Bayes rule }
 \end{aligned}
 $$
 
@@ -63,9 +63,9 @@ In the numerator of Bayes rule are two terms; the left term is equal to zero or 
 
 $$
 \begin{aligned}
-& P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right) \\
-& \quad=\sum_w P\left(W=w, L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}\right), \quad \text { marginalization } \\
-& \quad=\sum_w P(W=w) P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\}, L_4 \notin\{\mathrm{D}, \mathrm{I}, \mathrm{M}\} \mid W=w\right), \text { product rule }
+& P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right) \\
+& \quad=\sum_w P\left(W=w, L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}\right), \quad \text { marginalization } \\
+& \quad=\sum_w P(W=w) P\left(L_1=\mathrm{M}, L_3=\mathrm{D}, L_5=\mathrm{M}, L_2 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\}, L_4 \notin\\{\mathrm{D}, \mathrm{I}, \mathrm{M}\\} \mid W=w\right), \text { product rule }
 \end{aligned}
 $$
 
@@ -80,6 +80,6 @@ $$
 The second key computation is the predictive probability, based on the evidence, that the letter $\ell$ appears somewhere in the word:
 
 $$
-P\left(L_i=\ell \text { for some } i \in\{1,2,3,4,5\} \mid E\right)=\sum_w P\left(L_i=\ell \text { for some } i \in\{1,2,3,4,5\} \mid W=w\right) P(W=w \mid E) .
+P\left(L_i=\ell \text { for some } i \in\\{1,2,3,4,5\\} \mid E\right)=\sum_w P\left(L_i=\ell \text { for some } i \in\\{1,2,3,4,5\\} \mid W=w\right) P(W=w \mid E) .
 $$
 
